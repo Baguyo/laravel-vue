@@ -1,0 +1,141 @@
+//INSTALL VUE COMMAND
+npm install --save-dev vue @vitejs/plugin-vue
+
+// INCLUDE VUE TO vite.config.js
+import vue from '@vitejs/plugin-vue';
+        vue({
+            template: {
+                base: null,
+                includeAbsolute: false
+            }
+        })
+
+// INSTALL INERTIA
+composer require inertiajs/inertia-laravel
+
+// VIEWS MUST HAVE
+app.blade.php 
+
+// MUST INCLUDE TO app.blade.php
+@vite('resources/app.js')
+@inertiaHead
+
+@inertia
+
+// INSTALL INERTIA VUE
+npm install @inertiajs/inertia @inertiajs/inertia-vue3
+
+// TO INCLUDE IN app.js
+import { createApp, h } from 'vue'
+import { createInertiaApp } from '@inertiajs/inertia-vue3'
+
+createInertiaApp({
+  resolve: async (name) => {
+    const pages = import.meta.glob('./Pages/**/*.vue')
+
+    return (await pages[`./Pages/${name}.vue`]())
+  },
+  setup({ el, App, props, plugin }) {
+    createApp({ render: () => h(App, props) })
+      .use(plugin)
+      .mount(el)
+  },
+})
+
+//IMPORT LINK COMPONENT TO MAKE LINK TAG
+<script setup>
+import {Link} from '@inertiajs/inertia-vue3'
+</script>
+
+//INSTALL ESLINT PLUGIN FOR VUE
+npm install --save-dev eslint eslint-plugin-vue
+
+//INSTALL LARAVEL DEBUGBAR
+composer require barryvdh/laravel-debugbar --dev
+
+//INSTALL LARAVEL IDE FOR VSCODE
+composer require --dev barryvdh/laravel-ide-helper
+
+//DROP COLUMN IN THE DATABASE
+Schema::dropColumns('table name', [array of column name])
+
+
+// DATABASE 
+php artisan migrate:refresh --sedeer - // RUN THE MIGRATION WITH DATA SEEDER
+
+== QUERY DATABASE ELOQUENT ==
+
+// model connect to different table name = protected $table = '(name)'
+
+// Create model with array of data 
+make sure protected $fillable is set into model. THEN model::create([ 'data' ]);
+
+// INSTALL ZGIYY
+composer require tightenco/ziggy
+to make laravel route render into vue pages
+==CODE FOR ZIGGY==
+for vite.config
+import path from 'path'
+resolve : {
+  alias : {
+    ziggy : path.resolve(...paths: 'vendor/tightenco/ziggy/dist/vue.es.js'),
+  }
+}
+
+for app.blade.php
+@routes must be included before @vite
+
+for app.js
+import { ZiggyVue } from 'ziggy'
+.use(ZiggyVue)
+
+
+//INSTALL TAILWINDCSS FOR LARAVEL
+npm install -D tailwindcss
+npx tailwindcss init
+
+Add to app.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+//INSTALL TAILWIND FORM PLUGIN
+npm install -D @tailwindcss/forms
+
+
+// INSTALL INERTIA PROGRESS BAR
+npm install @inertiajs/progress
+
+//INCLUDE TO APP.JS FOR PROGRESS BAR
+import { InertiaProgress } from '@inertiajs/progress'
+InertiaProgress.init({
+  delay: 0,
+  color: '#29d',
+  includeCSS: true,
+  showSpinner: true,
+})
+
+
+// DATABASE RELATION ONE TO MANY
+independentModelName->dependentModelName->save(modelCreated)
+
+dependentModelName->independentModelName->associate($modelCreated)
+dependentModelName->save()
+
+
+//POLICY
+command : php artisan make:policy {model}Policy --model={modelName} // naming convention {model}Policy otherwise register to AuthServiceProvider
+
+SET POLICY IN CONTROLLER :  $this->authorize('policyAction', $model)
+
+SET POLICY IN CONSTRUCTOR :  $this->authorizeResource(Listing::class, 'listing');
+
+MAKE POLICY OPTIONAL : ?user
+
+// POLICY BUT BYPASS BY ADMIN 
+public function before(?User $user, $ability)
+    {
+        if($user->is_admin && $abilitiy === 'update'){
+            return true;
+        }
+  }
